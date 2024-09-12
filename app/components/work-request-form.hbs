@@ -1,8 +1,17 @@
 <form {{on "submit" this.submitForm}}>
+
+  <AuLabel for="address" class="au-u-margin-top">
+    Adres
+  </AuLabel>
+  <AddressRegisterSelector
+    @id="address"
+    @onClose={{this.closeAddressRegisterSelector}}
+  />
+
   <AuFormRow>
     <AuLabel
       for="firstName"
-      class="au-u-margin-top"
+      class="au-u-margin-top-small"
       @error={{this.errors.firstName}}
       @required={{true}}
     >Voornaam</AuLabel>

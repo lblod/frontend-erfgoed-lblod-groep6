@@ -21,6 +21,9 @@ export default class WorkRequestFormComponent extends Component {
   }
 
   @action
+  closeAddressRegisterSelector() {}
+
+  @action
   submitForm(event) {
     event.preventDefault();
 

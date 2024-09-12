@@ -1,0 +1,23 @@
+<div class={{if @error "ember-power-select--error"}} ...attributes>
+  <PowerSelect
+    @size="block"
+    @triggerId={{@id}}
+    @renderInPlace={{false}}
+    @search={{perform this.search}}
+    @selected={{this.addressSuggestion}}
+    @options={{this.options}}
+    @onChange={{perform this.selectSuggestion}}
+    @loadingMessage="Aan het laden..."
+    @searchEnabled={{true}}
+    @noMatchesMessage="Geen resultaten"
+    @searchMessage="Typ om te zoeken"
+    @disabled={{false}}
+    @placeholder="Geef adres in"
+    @onClose={{@onClose}}
+    @registerAPI={{this.powerselectApiRegistration}}
+    @onOpen={{this.searchForCurrentAddress}}
+    as |suggestion|
+  >
+    {{suggestion.fullAddress}}
+  </PowerSelect>
+</div>

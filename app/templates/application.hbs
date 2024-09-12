@@ -6,18 +6,18 @@
     @appTitle="Beschermde monumenten"
   >
     {{#if this.session.isAuthenticated}}
-    <AuDropdown
-      @title="Aangemeld als {{this.session.user.name}}"
-      @alignment="right"
-      role="menu"
-    >
-      <AuButton @skin="link" role="menuitem">
-        <AuIcon @icon="logout" @alignment="left" />Afmelden
-      </AuButton>
-    </AuDropdown>
+      <AuDropdown
+        @title="Aangemeld als {{this.session.user.name}}"
+        @alignment="right"
+        role="menu"
+      >
+        <AuButton @skin="link" role="menuitem">
+          <AuIcon @icon="logout" @alignment="left" />Afmelden
+        </AuButton>
+      </AuDropdown>
     {{/if}}
   </AuMainHeader>
-{{!--   <AuToolbar @size="medium" @skin="tint" @border="bottom" as |Group|>
+  {{!   <AuToolbar @size="medium" @skin="tint" @border="bottom" as |Group|>
     <Group>
       <ul class="au-c-list-horizontal au-c-list-horizontal--small">
         <li class="au-c-list-horizontal__item">
@@ -28,7 +28,7 @@
       </ul>
     </Group>
 </AuToolbar>
---}}
+}}
   <AuMainContainer as |m|>
     <m.content @scroll={{true}}>
       <div class="au-o-layout">
@@ -37,3 +37,5 @@
     </m.content>
   </AuMainContainer>
 </AuApp>
+
+<BasicDropdownWormhole />
