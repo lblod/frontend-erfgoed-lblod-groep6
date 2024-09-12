@@ -1,0 +1,35 @@
+<form {{on "submit" this.submitForm}}>
+  <AuFormRow>
+    <AuLabel
+      for="firstName"
+      class="au-u-margin-top"
+      @error={{this.errors.firstName}}
+      @required={{true}}
+    >Voornaam</AuLabel>
+    <AuInput
+      id="firstName"
+      @error={{this.errors.firstName}}
+      {{on "keyup" this.changeFirstName}}
+    />
+  </AuFormRow>
+
+  <AuFormRow>
+    <AuLabel
+      for="lastName"
+      class="au-u-margin-top-small"
+      @error={{this.errors.lastName}}
+      @required={{true}}
+    >Familienaam</AuLabel>
+    <AuInput
+      id="lastName"
+      @error={{this.errors.lastName}}
+      {{on "keyup" this.changeLastName}}
+    />
+  </AuFormRow>
+
+  <AuFormRow class="au-u-margin-top-small">
+    <AuButton type="submit" @skin="primary">
+      Verstuur
+    </AuButton>
+  </AuFormRow>
+</form>

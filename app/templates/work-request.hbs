@@ -1,14 +1,7 @@
-{{page-title "Aanvraag werken beschermd monument"}}
+{{page-title "Aanvraag werken"}}
 
-<h2>Aanvraag werken beschermd monument</h2>
+<AuHeading class="au-u-margin-top-large" @level="1" @skin="3">
+  Aanvraag voor werken aan een beschermd monument
+</AuHeading>
 
-<SubmissionForm
-  @form={{this.form}}
-  @show={{this.model.submitted}}
-  @graphs={{this.graphs}}
-  @sourceNode={{this.sourceNode}}
-  @formStore={{this.formStore}}
-  @forceShowErrors={{this.forceShowErrors}}
-/>
-
-{{outlet}}
+<WorkRequestForm />
