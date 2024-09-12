@@ -1,0 +1,16 @@
+<AuFormRow>
+  <AuLabel for="address-search" class="au-u-margin-top">Adres</AuLabel>
+  <AuInput id="address-search" onkeyup={{perform this.changeSearchTerm}} />
+</AuFormRow>
+
+{{#if this.addressLookup.error}}
+  {{this.addressLookup.error.message}}
+{{/if}}
+
+<ul>
+  {{#each this.addressLookup.addresses as |address|}}
+    <li>
+      {{address.detail}}
+    </li>
+  {{/each}}
+</ul>

@@ -1,6 +1,6 @@
 import Service from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import fetch from 'ember-fetch';
+import fetch from 'fetch';
 
 const BASE_URL = 'localhost/adres-search';
 
