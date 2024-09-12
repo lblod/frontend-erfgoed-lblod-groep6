@@ -1,10 +1,10 @@
-import Model, { attr, hasMany } from '@ember-data/model';
+import Model, { attr, belongsTo } from '@ember-data/model';
 
-export default class GebruikerModel extends Model {
+export default class UserModel extends Model {
   @attr firstName;
   @attr lastName;
 
-  @hasMany('account', { async: false, inverse: 'user' }) account;
+  @belongsTo('account', { async: false, inverse: 'user' }) account;
 
   @belongsTo('admin-unit', {
     async: false,

@@ -13,40 +13,18 @@
                    @skin="warning"
           />
         {{/if}}
-        <login.each-account @accounts={{this.model}} as |account|>
-          <div
-            class="au-o-box au-o-box--small au-c-card au-u-margin-bottom-small"
+        {{log this.model.firstObject.user.lastName}}
+        {{#each this.model as |account|}}
+          <AuButton
+            @skin="secondary"
+            {{on
+              "click"
+              (fn login.login account.id account.gebruiker.group.id)
+            }}
           >
-            <p>
-              {{account.gebruiker.voornaam}}
-              {{account.gebruiker.achternaam}}
-            </p>
-            {{#if account.gebruiker.group.alternatieveNaam}}
-              <AuHr />
-              <p>
-                <span class="au-c-info-text">Alternatieve naam:</span>
-                {{#each
-                   account.gebruiker.bestuurseenheden
-                   as |bestuurseenheid|
-                }}
-                  {{#each
-                     bestuurseenheid.alternatieveNaam
-                     as |alternatieveNaam|
-                  }}
-                    <AuPill>{{alternatieveNaam}}</AuPill>
-                  {{/each}}
-                {{/each}}
-              </p>
-            {{/if}}
-          </div>
-        </login.each-account>
-        <AuDataTableNumberPagination
-          @page={{this.page}}
-                @size={{this.size}}
-          @nbOfItems={{this.model.length}}
-                @total={{this.model.meta.count}}
-          @links={{this.model.meta.pagination}}
-        />
+            {{account.user.lastName}}
+          </AuButton>
+        {{/each}}
       {{/if}}
     </MockLogin>
   </div>
