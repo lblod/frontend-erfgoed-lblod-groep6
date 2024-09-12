@@ -6,8 +6,9 @@
     @appTitle="Beschermde monumenten"
   >
     {{#if this.session.isAuthenticated}}
-    <AuDropdown
-      @title="Aangemeld als {{this.session.user.name}}"
+      {{log this.currentSession.user}}
+      <AuDropdown
+      @title="Aangemeld als {{this.currentSession.user.lastName}}"
       @alignment="right"
       role="menu"
     >

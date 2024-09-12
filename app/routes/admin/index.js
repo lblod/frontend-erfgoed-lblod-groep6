@@ -5,7 +5,7 @@ export default class AdminIndexRoute extends Route {
   @service router;
   beforeModel() {
     if (this.session.isAuthenticated) {
-      this.router.transitionTo('admin.erfgoed-beheerder');
+      // todo REDIRECT TO CORRECT PAGEx
     } else {
       this.router.transitionTo('admin.login');
     }
