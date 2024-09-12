@@ -5,8 +5,9 @@
     @brandLink="https://www.vlaanderen.be/nl"
     @appTitle="Beschermde monumenten"
   >
+    {{#if this.session.isAuthenticated}}
     <AuDropdown
-      @title="Aangemeld als Joren Saey"
+      @title="Aangemeld als {{this.session.user.name}}"
       @alignment="right"
       role="menu"
     >
@@ -14,8 +15,9 @@
         <AuIcon @icon="logout" @alignment="left" />Afmelden
       </AuButton>
     </AuDropdown>
+    {{/if}}
   </AuMainHeader>
-  <AuToolbar @size="medium" @skin="tint" @border="bottom" as |Group|>
+{{!--   <AuToolbar @size="medium" @skin="tint" @border="bottom" as |Group|>
     <Group>
       <ul class="au-c-list-horizontal au-c-list-horizontal--small">
         <li class="au-c-list-horizontal__item">
@@ -25,7 +27,8 @@
         </li>
       </ul>
     </Group>
-  </AuToolbar>
+</AuToolbar>
+--}}
   <AuMainContainer as |m|>
     <m.content @scroll={{true}}>
       <div class="au-o-layout">
