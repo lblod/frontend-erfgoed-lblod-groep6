@@ -1,3 +1,6 @@
-import Model from '@ember-data/model';
+import Model, { belongsTo } from '@ember-data/model';
 
-export default class DesignationObjectModel extends Model {}
+export default class DesignationObjectModel extends Model {
+  @belongsTo('location-parcel', { async: true }) parcel;
+  @belongsTo('address-representation', { async: true }) address;
+}
