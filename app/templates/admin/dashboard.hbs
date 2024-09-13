@@ -1,0 +1,24 @@
+{{page-title "Dashboard"}}
+<AuDataTable
+  @content={{this.model}}
+  as |table|>
+  <span
+  ></span>
+  <table.menu as |menu|>
+    <menu.general>
+      {{yield to="menu"}}
+    </menu.general>
+  </table.menu>
+  <table.content as |content|>
+    <content.header>
+      <th>created</th>
+      <th>primary subject</th>
+      <th>address</th>
+    </content.header>
+    <content.body as |item|>
+      {{yield item to="body"}}
+    </content.body>
+
+  </table.content>
+
+</AuDataTable>{{outlet}}
