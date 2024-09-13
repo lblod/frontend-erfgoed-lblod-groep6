@@ -52,15 +52,14 @@
   <AuFormRow @alignment="inline">
     <AuLabel
       for="firstName"
-
       @error={{this.errors.email}}
-           @required={{true}}
+      @required={{true}}
     >Email</AuLabel>
     <AuInput
       id="email"
       @error={{this.errors.email}}
       type="email"
-      {{on "input" this.updateEmail}}
+      {{on "keyup" this.updateEmail}}
     />
   </AuFormRow>
   <AuFormRow @alignment="inline">
@@ -71,7 +70,7 @@
     >Telefoon (tijdens de werkuren)</AuLabel>
     <AuInput
       id="telephone"
-      @error={{this.errors.lastName}}
+      @error={{this.errors.telephone}}
       {{on "keyup" this.updateTelephone}}
     />
   </AuFormRow>

@@ -10,6 +10,7 @@ Router.map(function () {
   this.route('work-request');
   this.route('admin', function () {
     this.route('login');
+    this.route('dashboard');
   });
   this.route('legaal', function () {
     this.route('cookieverklaring');

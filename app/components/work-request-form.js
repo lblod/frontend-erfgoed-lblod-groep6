@@ -7,6 +7,7 @@ import workRequestFormSchema from '../domain/work-requests/work-request-form-sch
 
 export default class WorkRequestFormComponent extends Component {
   @service store;
+  @service router;
   @tracked values = {
     firstName: '',
     lastName: '',
@@ -17,6 +18,7 @@ export default class WorkRequestFormComponent extends Component {
   @tracked errors = {};
   @tracked objectOptions;
   @tracked protectedObject;
+  @tracked submitterAddress;
   @tracked address;
   @tracked description;
   @tracked obj;
@@ -52,6 +54,10 @@ export default class WorkRequestFormComponent extends Component {
     this.values.lastName = event.target.value;
   }
 
+  @action setSubmitterAddress(address) {
+    this.submitterAddress = address;
+  }
+
   @action
   setAddress(address) {
     console.log(address);
@@ -69,6 +75,7 @@ export default class WorkRequestFormComponent extends Component {
     this.values.telephone = event.target.value;
   }
 
+  @action
   updateRRN(event) {
     this.values.rrn = event.target.value;
   }
@@ -83,6 +90,8 @@ export default class WorkRequestFormComponent extends Component {
     const { error, data } = workRequestFormSchema.safeParse({
       firstName: this.values.firstName,
       lastName: this.values.lastName,
+      email: this.values.email,
+      telephone: this.values.telephone
     });
 
     if (error) {
@@ -107,10 +116,33 @@ export default class WorkRequestFormComponent extends Component {
     });
     await caseRecord.save();
 
+    const address = this.store.createRecord('address-representation', {
+      streetName: this.submitterAddress.straatnaam,
+      municipalityName: this.submitterAddress.gemeentenaam,
+      busNumber: this.submitterAddress.huisnummer,
+      postalCode: this.submitterAddress.postalCode
+    });
+
+    await address.save();
+    const cp = this.store.createRecord('contact-point', {
+      name: `${this.values.firstName} ${this.values.lastName}`,
+      email: this.values.email,
+      telephone: this.values.telephone,
+      address
+    });
+    await cp.save();
+    const identifier = this.store.createRecord('identifier', {
+      identifier: this.values.rrn
+    });
+    await identifier.save();
     const person = this.store.createRecord('person', {
       firstName: this.values.firstName,
       lastName: this.values.lastName,
+      contactPoints: [cp],
+      identifier
     });
     await person.save();
+    this.router.transitionTo('admin.dashboard');
   });
+
 }

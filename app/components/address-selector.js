@@ -24,7 +24,7 @@ export default class AdressenregisterSelectorComponent extends Component {
   async getAddressInfo() {
     const address = await this.args.address;
     if (address) {
-      this.addressSuggestion = await this.addressregister.toAddressSuggestion(
+      this.addressSuggestion = await this.addressRegister.toAddressSuggestion(
         address
       );
       const addresses = await this.addressregister.findAll(
