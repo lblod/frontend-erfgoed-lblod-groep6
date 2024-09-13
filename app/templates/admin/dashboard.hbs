@@ -1,24 +1,52 @@
-{{page-title "Dashboard"}}
-<AuDataTable
-  @content={{this.model}}
-  as |table|>
-  <span
-  ></span>
-  <table.menu as |menu|>
-    <menu.general>
-      {{yield to="menu"}}
-    </menu.general>
-  </table.menu>
-  <table.content as |content|>
-    <content.header>
-      <th>created</th>
-      <th>primary subject</th>
-      <th>address</th>
-    </content.header>
-    <content.body as |item|>
-      {{yield item to="body"}}
-    </content.body>
+{{page-title "Overzicht aanvragen"}}
 
-  </table.content>
-
-</AuDataTable>{{outlet}}
+<section class="au-o-region-large">
+  <div class="au-o-layout">
+    <AuDataTable
+      @content={{this.getData this.page this.itemsPerPage this.totalItems}}
+      @page={{this.page}}
+      @fields="name description"
+      @noDataMessage="Geen aanvragen"
+      @sort={{this.sort}}
+      as |t|
+    >
+      <t.menu as |menu|>
+        <menu.general>
+          <AuToolbar class="au-o-box" as |Group|>
+            <Group>
+              <AuHeading @skin={{2}}>
+                Aanvragen
+              </AuHeading>
+            </Group>
+            <Group class="au-c-toolbar__group--center">
+              <AuDataTableTextSearch
+                @filter={{this.title}}
+                @placeholder="Zoek aanvragen"
+              />
+            </Group>
+          </AuToolbar>
+        </menu.general>
+      </t.menu>
+      <t.content as |c|>
+        <c.header>
+          <AuDataTableThSortable
+            @field="title"
+            @currentSorting={{this.sort}}
+            @label="Naam monument"
+            @class="data-table__header-title"
+          />
+          <AuDataTableThSortable
+            @field="description"
+            @currentSorting={{this.sort}}
+            @label="Omschrijving"
+            @class="data-table__header-title"
+          />
+        </c.header>
+        <c.body as |row|>
+          <td>{{row.title}}</td>
+          <td>{{row.description}}</td>
+        </c.body>
+      </t.content>
+    </AuDataTable>
+  </div>
+</section>
