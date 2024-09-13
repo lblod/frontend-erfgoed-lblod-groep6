@@ -32,10 +32,10 @@ export default class AdressenregisterSelectorComponent extends Component {
       );
       if (addresses.length > 1) {
         const selectedAddress = addresses.find(
-          (a) => a.busnumber == address.busnummer
+          (a) => a.adresStatus == "inGebruik"
         );
-        this.addressesWithBusnumbers = addresses.sortBy('busnumber');
-        this.addressWithBusnumber = selectedAddress;
+        console.log(selectedAddress);
+        this.addressSuggestion = selectedAddress;
       } else {
         this.addressesWithBusnumbers = null;
         this.addressWithBusnumber = null;
@@ -50,11 +50,11 @@ export default class AdressenregisterSelectorComponent extends Component {
 
     if (addressSuggestion) {
       const addresses = await this.addressRegister.findAll(addressSuggestion);
-      if (addresses.length == 1) {
+      if (addresses.length > 0) {
         this.args.onChange(addresses[0].adresProperties);
+      } else {
+        this.args.onChange(null);
       }
-    } else {
-      this.args.onChange(null);
     }
   });
 
