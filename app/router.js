@@ -11,5 +11,10 @@ Router.map(function () {
   this.route('admin', function () {
     this.route('login');
   });
+  this.route('legaal', function () {
+    this.route('cookieverklaring');
+    this.route('disclaimer');
+    this.route('toegankelijkheidsverklaring');
+  });
   this.route('sparql');
 });
