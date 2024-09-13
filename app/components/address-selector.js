@@ -32,7 +32,7 @@ export default class AdressenregisterSelectorComponent extends Component {
       );
       if (addresses.length > 1) {
         const selectedAddress = addresses.find(
-          (a) => a.adresStatus == "inGebruik"
+          (a) => a.adresStatus == 'inGebruik'
         );
         console.log(selectedAddress);
         this.addressSuggestion = selectedAddress;
@@ -43,7 +43,7 @@ export default class AdressenregisterSelectorComponent extends Component {
     }
   }
 
-  selectSuggestion = task( async (addressSuggestion) => {
+  selectSuggestion = task(async (addressSuggestion) => {
     this.addressesWithBusnumbers = null;
     this.addressWithBusnumber = null;
     this.addressSuggestion = addressSuggestion;
@@ -58,7 +58,7 @@ export default class AdressenregisterSelectorComponent extends Component {
     }
   });
 
-  search = keepLatestTask( async (searchData) => {
+  search = keepLatestTask(async (searchData) => {
     try {
       await timeout(400);
       const addressSuggestions = await this.addressRegister.suggest(searchData);

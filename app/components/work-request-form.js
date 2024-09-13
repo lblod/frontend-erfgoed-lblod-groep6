@@ -10,23 +10,27 @@ export default class WorkRequestFormComponent extends Component {
   @tracked values = {
     firstName: '',
     lastName: '',
+    email: '',
+    telephone: '',
+    rrn: '',
   };
   @tracked errors = {};
-  @tracked searchObjects;
+  @tracked objectOptions;
   @tracked protectedObject;
   @tracked address;
+  @tracked description;
   @tracked obj;
 
-  searchObjects = keepLatestTask( async (query) => {
+  searchObjects = keepLatestTask(async (query) => {
     try {
       await timeout(200);
       const objects = await this.store.query('designation-object', {
         filter: {
           'admin-unit-name': this.address.gemeentenaam,
           'full-address': this.address.straatnaam,
-          'name': query
+          name: query,
         },
-        sort: 'name'
+        sort: 'name',
       });
       return objects;
     } catch (e) {
@@ -71,16 +75,11 @@ export default class WorkRequestFormComponent extends Component {
 
   @action
   updateDescription(event) {
-    
+    this.description = event.target.value;
   }
-  @action
-  async submitForm(event) {
-    event.preventDefault();
-    const caseRecord = this.store.createRecord('case', {
-      created: new Date()
-    });
-    await caseRecord.save();
 
+  submitForm = task(async (event) => {
+    event.preventDefault();
     const { error, data } = workRequestFormSchema.safeParse({
       firstName: this.values.firstName,
       lastName: this.values.lastName,
@@ -92,9 +91,26 @@ export default class WorkRequestFormComponent extends Component {
     }
 
     this.errors = {};
+    const adminUnit = await this.store.findRecord(
+      'admin-unit',
+      '353234a365664e581db5c2f7cc07add2534b47b8e1ab87c821fc6e6365e6bef5'
+    ); //cheating Hardcoded Aalter
+    const postalItem = this.store.createRecord('postal-item', {
+      description: this.description,
+    });
+    await postalItem.save();
+    const caseRecord = this.store.createRecord('case', {
+      created: new Date(),
+      primarySubject: this.protectedObject,
+      adminUnit,
+      startedBy: postalItem,
+    });
+    await caseRecord.save();
 
-    console.log('Submitting form');
-    console.log('First name', data.firstName);
-    console.log('Last name', data.lastName);
-  }
+    const person = this.store.createRecord('person', {
+      firstName: this.values.firstName,
+      lastName: this.values.lastName,
+    });
+    await person.save();
+  });
 }

@@ -1,4 +1,4 @@
-<form {{on "submit" this.submitForm}}>
+<form {{on "submit" (perform this.submitForm)}}>
   <h3 class="au-u-h3">Gegevens van het erfgoed</h3>
   <AddressSelector @onChange={{this.setAddress}} />
   {{#if this.address}}
@@ -7,13 +7,13 @@
       <PowerSelect
         @triggerId="object"
         @allowClear={{true}}
-                    @search={{perform this.searchObjects}}
+        @search={{perform this.searchObjects}}
         @options={{this.objectOptions}}
-                    @selected={{this.protectedObject}}
+        @selected={{this.protectedObject}}
         @onChange={{this.selectObject}}
-                    @loadingMessage="Aan het laden..."
+        @loadingMessage="Aan het laden..."
         @searchEnabled={{true}}
-                    @noMatchesMessage="Geen resultaten"
+        @noMatchesMessage="Geen resultaten"
         @searchMessage="Typ om te zoeken"
         as |suggestion|
       >
@@ -23,12 +23,13 @@
     </div>
   {{/if}}
   <br>
+  {{#if this.protectedObject}}
   <h3 class="au-u-h3">Persoonlijke gegevens</h3>
   <AuFormRow @alignment="inline">
     <AuLabel
       for="firstName"
       @error={{this.errors.firstName}}
-           @required={{true}}
+      @required={{true}}
     >Voornaam</AuLabel>
     <AuInput
       id="firstName"
@@ -51,21 +52,23 @@
   <AuFormRow @alignment="inline">
     <AuLabel
       for="firstName"
+
       @error={{this.errors.email}}
            @required={{true}}
     >Email</AuLabel>
     <AuInput
       id="email"
       @error={{this.errors.email}}
+      type="email"
       {{on "input" this.updateEmail}}
     />
   </AuFormRow>
   <AuFormRow @alignment="inline">
     <AuLabel
       for="telephone"
-      @error={{this.errors.telepone}}
-           @required={{true}}
-    >Telephone</AuLabel>
+      @error={{this.errors.telephone}}
+      @required={{true}}
+    >Telefoon (tijdens de werkuren)</AuLabel>
     <AuInput
       id="telephone"
       @error={{this.errors.lastName}}
@@ -85,6 +88,7 @@
     />
   </AuFormRow>
   <AddressSelector @onChange={{this.setSubmitterAddress}} @address={{this.address}} />
+  {{/if}}
   <AuFormRow>
     <AuLabel for="textarea-description">Beschrijving van de geplande werken</AuLabel>
     <AuTextarea
@@ -108,7 +112,7 @@
   </AuFormRow>
   <div class="au-o-grid__item.au-u-1-2@medium au-u-margin-large">
     <AuFormRow class="au-u-margin-top-small">
-      <AuButton type="submit" @skin="primary">
+      <AuButton type="submit" @disabled={{not this.protectedObject}} @skin="primary">
         Verstuur
       </AuButton>
     </AuFormRow>
