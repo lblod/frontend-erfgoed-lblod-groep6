@@ -1,25 +1,30 @@
-<form {{on "submit" (perform this.submitForm)}}>
+<form class="au-c-form" {{on "submit" (perform this.submitForm)}}>
   <h3 class="au-u-h3">Gegevens van het erfgoed</h3>
-  <AddressSelector @onChange={{this.setAddress}} />
+  <AuFormRow @alignment="default">
+    <AddressSelector @onChange={{this.setAddress}} />
+  </AuFormRow>
   {{#if this.address}}
     <div class="au-u-2-3@medium">
-      <AuLabel for="object">Zoek uw beschermd object</AuLabel>
-      <PowerSelect
-        @triggerId="object"
-        @allowClear={{true}}
-        @search={{perform this.searchObjects}}
-        @options={{this.objectOptions}}
-        @selected={{this.protectedObject}}
-        @onChange={{this.selectObject}}
-        @loadingMessage="Aan het laden..."
-        @searchEnabled={{true}}
-        @noMatchesMessage="Geen resultaten"
-        @searchMessage="Typ om te zoeken"
-        as |suggestion|
-      >
-        {{suggestion.name}}<br>
-        <small>{{suggestion.fullAddress}} {{suggestion.adminUnitName}}</small>
-      </PowerSelect>
+      <AuFormRow @alignment="default">
+        <AuLabel for="object">Zoek uw beschermd object</AuLabel>
+        <PowerSelect
+          style="width: 100%;"
+          @triggerId="object"
+          @allowClear={{true}}
+          @search={{perform this.searchObjects}}
+          @options={{this.objectOptions}}
+          @selected={{this.protectedObject}}
+          @onChange={{this.selectObject}}
+          @loadingMessage="Aan het laden..."
+          @searchEnabled={{true}}
+          @noMatchesMessage="Geen resultaten"
+          @searchMessage="Typ om te zoeken"
+          as |suggestion|
+        >
+          {{suggestion.name}}<br>
+          <small>{{suggestion.fullAddress}} {{suggestion.adminUnitName}}</small>
+        </PowerSelect>
+      </AuFormRow>
     </div>
   {{/if}}
   <br>
