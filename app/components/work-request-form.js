@@ -24,6 +24,7 @@ export default class WorkRequestFormComponent extends Component {
         filter: {
           'admin-unit-name': this.address.gemeentenaam,
           'full-address': this.address.straatnaam,
+          'name': query
         },
         sort: 'name'
       });
@@ -55,8 +56,30 @@ export default class WorkRequestFormComponent extends Component {
   }
 
   @action
-  submitForm(event) {
+  updateEmail(event) {
+    this.values.email = event.target.value;
+  }
+
+  @action
+  updateTelephone(event) {
+    this.values.telephone = event.target.value;
+  }
+
+  updateRRN(event) {
+    this.values.rrn = event.target.value;
+  }
+
+  @action
+  updateDescription(event) {
+    
+  }
+  @action
+  async submitForm(event) {
     event.preventDefault();
+    const caseRecord = this.store.createRecord('case', {
+      created: new Date()
+    });
+    await caseRecord.save();
 
     const { error, data } = workRequestFormSchema.safeParse({
       firstName: this.values.firstName,

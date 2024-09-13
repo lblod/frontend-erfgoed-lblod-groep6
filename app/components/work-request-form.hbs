@@ -1,4 +1,5 @@
 <form {{on "submit" this.submitForm}}>
+  <h3 class="au-u-h3">Gegevens van het erfgoed</h3>
   <AddressSelector @onChange={{this.setAddress}} />
   {{#if this.address}}
     <div class="au-u-2-3@medium">
@@ -6,13 +7,13 @@
       <PowerSelect
         @triggerId="object"
         @allowClear={{true}}
-        @search={{perform this.searchObjects}}
+                    @search={{perform this.searchObjects}}
         @options={{this.objectOptions}}
-        @selected={{this.protectedObject}}
+                    @selected={{this.protectedObject}}
         @onChange={{this.selectObject}}
-        @loadingMessage="Aan het laden..."
+                    @loadingMessage="Aan het laden..."
         @searchEnabled={{true}}
-        @noMatchesMessage="Geen resultaten"
+                    @noMatchesMessage="Geen resultaten"
         @searchMessage="Typ om te zoeken"
         as |suggestion|
       >
@@ -21,13 +22,13 @@
       </PowerSelect>
     </div>
   {{/if}}
-  {{#if this.protectedObject}}
-  <AuFormRow>
+  <br>
+  <h3 class="au-u-h3">Persoonlijke gegevens</h3>
+  <AuFormRow @alignment="inline">
     <AuLabel
       for="firstName"
-      class="au-u-margin-top"
       @error={{this.errors.firstName}}
-      @required={{true}}
+           @required={{true}}
     >Voornaam</AuLabel>
     <AuInput
       id="firstName"
@@ -35,13 +36,11 @@
       {{on "keyup" this.changeFirstName}}
     />
   </AuFormRow>
-
-  <AuFormRow>
+  <AuFormRow @alignment="inline">
     <AuLabel
       for="lastName"
-      class="au-u-margin-top-small"
       @error={{this.errors.lastName}}
-      @required={{true}}
+           @required={{true}}
     >Familienaam</AuLabel>
     <AuInput
       id="lastName"
@@ -49,11 +48,69 @@
       {{on "keyup" this.changeLastName}}
     />
   </AuFormRow>
-
-  <AuFormRow class="au-u-margin-top-small">
-    <AuButton type="submit" @skin="primary">
-      Verstuur
-    </AuButton>
+  <AuFormRow @alignment="inline">
+    <AuLabel
+      for="firstName"
+      @error={{this.errors.email}}
+           @required={{true}}
+    >Email</AuLabel>
+    <AuInput
+      id="email"
+      @error={{this.errors.email}}
+      {{on "input" this.updateEmail}}
+    />
   </AuFormRow>
-  {{/if}}
+  <AuFormRow @alignment="inline">
+    <AuLabel
+      for="telephone"
+      @error={{this.errors.telepone}}
+           @required={{true}}
+    >Telephone</AuLabel>
+    <AuInput
+      id="telephone"
+      @error={{this.errors.lastName}}
+      {{on "keyup" this.updateTelephone}}
+    />
+  </AuFormRow>
+  <AuFormRow @alignment="inline">
+    <AuLabel
+      for="rijksregisternummer"
+      @error={{this.errors.rijksregisternummer}}
+           @required={{true}}
+    >rijksregisternummer</AuLabel>
+    <AuInput
+      id="rijksregisternummer"
+      @error={{this.errors.lastName}}
+      {{on "keyup" this.updateRRN}}
+    />
+  </AuFormRow>
+  <AddressSelector @onChange={{this.setSubmitterAddress}} @address={{this.address}} />
+  <AuFormRow>
+    <AuLabel for="textarea-description">Beschrijving van de geplande werken</AuLabel>
+    <AuTextarea
+      {{on "input" this.updateDescription}}
+      id="textarea-description"
+      @width="block"
+      @value={{this.description}}
+          @required={{true}}
+    />
+                <AuHelpText>
+      <p>Voeg de volgende informatie bij uw aanvraag:</p>
+      <ul><li> Een beschrijving van de huidige staat van het erfgoed: Geef geen beschrijving van het volledige erfgoed, maar enkel van het gedeelte waarop de geplande werken betrekking hebben. Voeg foto's toe en duid op een (zelfgemaakt) plan aan waar deze zijn genomen.</li>
+        <li> Een beschrijving van de geplande werken: <ul>
+          <li> Geef aan waar deze werken precies zullen plaatsvinden, door middel van foto’s, (zelfgemaakt) situeringsplan en/of schets met aanduiding van de ingreep.</li>
+          <li> Geef een volledige, uitgebreide en nauwkeurige beschrijving van de werken waarbij u voldoende concreet ingaat op de uitvoeringswijze (materialen, kleur, uitvoeringstechniek). Voeg, indien van toepassing, technische fiches en uitvoeringstekeningen toe. Enkel een offerte is niet voldoende.</li>
+        </ul>
+        </li>
+        <li> Een motivering van de geplande werken: Leg uitgebreid en grondig uit waarom de geplande werkzaamheden moeten plaatsvinden en verwijs daarbij, als het van toepassing is, naar het goedgekeurde beheersplan.</li>
+      </ul></AuHelpText>
+
+  </AuFormRow>
+  <div class="au-o-grid__item.au-u-1-2@medium au-u-margin-large">
+    <AuFormRow class="au-u-margin-top-small">
+      <AuButton type="submit" @skin="primary">
+        Verstuur
+      </AuButton>
+    </AuFormRow>
+  </div>
 </form>
