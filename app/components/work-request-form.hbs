@@ -1,6 +1,5 @@
 <form {{on "submit" this.submitForm}}>
-  <AddressField />
-
+  <AddressSelector @onChange={{this.setAddress}} />
   <AuFormRow>
     <AuLabel
       for="firstName"

@@ -13,10 +13,14 @@ export default class AddressLookupService extends Service {
     try {
       this.error = null;
       this.loading = true;
-      const response = await fetch(`${BASE_URL}/search?query="${searchTerm}"`, {
-        method: 'GET',
-      });
+      const response = await fetch(
+        `adres-search/search?query="${searchTerm}"`,
+        {
+          method: 'GET',
+        }
+      );
       const data = await response.json();
+      console.log(data);
       this.addresses = data.adressen;
     } catch (error) {
       this.error = error;

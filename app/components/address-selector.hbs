@@ -1,0 +1,18 @@
+<div class="au-u-2-3@medium">
+  <AuLabel for="address">Adres</AuLabel>
+  <PowerSelect
+    @triggerId="address"
+    @allowClear={{true}}
+    @disabled={{this.disabled}}
+    @search={{perform this.search}}
+    @selected={{this.addressSuggestion}}
+    @onChange={{perform this.selectSuggestion}}
+    @loadingMessage="Aan het laden..."
+    @searchEnabled={{true}}
+    @noMatchesMessage="Geen resultaten"
+    @searchMessage="Typ om te zoeken"
+    as |suggestion|
+  >
+    {{suggestion.fullAddress}}
+  </PowerSelect>
+</div>

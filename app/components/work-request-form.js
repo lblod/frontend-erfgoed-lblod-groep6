@@ -21,6 +21,11 @@ export default class WorkRequestFormComponent extends Component {
   }
 
   @action
+  setAddress(address) {
+    console.log(address);
+  }
+  
+  @action
   submitForm(event) {
     event.preventDefault();
 
