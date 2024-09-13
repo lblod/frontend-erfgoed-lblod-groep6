@@ -1,5 +1,27 @@
 <form {{on "submit" this.submitForm}}>
   <AddressSelector @onChange={{this.setAddress}} />
+  {{#if this.address}}
+    <div class="au-u-2-3@medium">
+      <AuLabel for="object">Zoek uw beschermd object</AuLabel>
+      <PowerSelect
+        @triggerId="object"
+        @allowClear={{true}}
+        @search={{perform this.searchObjects}}
+        @options={{this.objectOptions}}
+        @selected={{this.protectedObject}}
+        @onChange={{this.selectObject}}
+        @loadingMessage="Aan het laden..."
+        @searchEnabled={{true}}
+        @noMatchesMessage="Geen resultaten"
+        @searchMessage="Typ om te zoeken"
+        as |suggestion|
+      >
+        {{suggestion.name}}<br>
+        <small>{{suggestion.fullAddress}} {{suggestion.adminUnitName}}</small>
+      </PowerSelect>
+    </div>
+  {{/if}}
+  {{#if this.protectedObject}}
   <AuFormRow>
     <AuLabel
       for="firstName"
@@ -33,4 +55,5 @@
       Verstuur
     </AuButton>
   </AuFormRow>
+  {{/if}}
 </form>

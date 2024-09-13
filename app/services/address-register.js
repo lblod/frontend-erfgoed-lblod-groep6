@@ -61,8 +61,6 @@ class Address {
 
 export default class AddressregisterService extends Service {
   async suggest(query) {
-    console.log('foo!');
-    console.log(query);
     const results = await (
       await fetch(`/adres-search/search?query=${query}`)
     ).json();
