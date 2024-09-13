@@ -11,4 +11,5 @@ Router.map(function () {
   this.route('admin', function () {
     this.route('login');
   });
+  this.route('sparql');
 });
